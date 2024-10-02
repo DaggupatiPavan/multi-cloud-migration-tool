@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Cloud Migration Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Multi-Cloud Migration Tool</h1>
+
+    <div class="form-group">
+        <label for="source-cloud">Select Source Cloud:</label>
+        <select id="source-cloud">
+            <option value="aws">AWS</option>
+            <option value="azure">Azure</option>
+            <option value="gcp">GCP</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="source-region">Select Source Region:</label>
+        <select id="source-region">
+            <option value="us-east-1">US East (N. Virginia)</option>
+            <option value="us-west-1">US West (N. California)</option>
+            <option value="us-west-2">US West (Oregon)</option>
+            <option value="eu-central-1">EU (Frankfurt)</option>
+            <option value="ap-south-1">Asia Pacific (Mumbai)</option>
+            <!-- Add more regions as necessary -->
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="destination-cloud">Select Destination Cloud:</label>
+        <select id="destination-cloud">
+            <option value="azure">Azure</option>
+            <option value="gcp">GCP</option>
+            <option value="aws">AWS</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="destination-region">Select Destination Region:</label>
+        <select id="destination-region">
+            <option value="us-east-2">US East (Ohio)</option>
+            <option value="us-west-2">US West (Oregon)</option>
+            <option value="eu-west-1">EU (Ireland)</option>
+            <option value="ap-southeast-1">Asia Pacific (Singapore)</option>
+            <option value="ap-southeast-2">Asia Pacific (Sydney)</option>
+            <!-- Add more regions as necessary -->
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="aws-access-key">AWS Access Key:</label>
+        <input type="text" id="aws-access-key" placeholder="Enter AWS Access Key">
+    </div>
+
+    <div class="form-group">
+        <label for="aws-secret-key">AWS Secret Key:</label>
+        <input type="text" id="aws-secret-key" placeholder="Enter AWS Secret Key">
+    </div>
+
+    <div class="form-group">
+        <label for="azure-client-id">Azure Client ID:</label>
+        <input type="text" id="azure-client-id" placeholder="Enter Azure Client ID">
+    </div>
+
+    <div class="form-group">
+        <label for="azure-client-secret">Azure Client Secret:</label>
+        <input type="text" id="azure-client-secret" placeholder="Enter Azure Client Secret">
+    </div>
+
+    <div class="form-group">
+        <button class="button" id="list-instances">List Instances</button>
+    </div>
+
+    <div class="instance-list" id="instance-list">
+        <h3>Select Instances to Migrate:</h3>
+        <div id="instances-container"></div>
+    </div>
+
+    <div class="form-group">
+        <button class="button" id="migrate-instances">Migrate Selected Instances</button>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#list-instances').click(function () {
+            const sourceCloud = $('#source-cloud').val();
+            const sourceRegion = $('#source-region').val();
+            const awsAccessKey = $('#aws-access-key').val();
+            const awsSecretKey = $('#aws-secret-key').val();
+            const azureClientId = $('#azure-client-id').val();
+            const azureClientSecret = $('#azure-client-secret').val();
+
+            $.ajax({
+                url: '/list-instances',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    source: sourceCloud,
+                    region: sourceRegion,
+                    awsAccessKey: awsAccessKey,
+                    awsSecretKey: awsSecretKey,
+                    azureClientId: azureClientId,
+                    azureClientSecret: azureClientSecret
+                }),
+                success: function (data) {
+                    $('#instances-container').empty();
+                    data.instances.forEach(function (instance) {
+                        $('#instances-container').append(
+                            `<div class="instance-item">
+                                <span>${instance}</span>
+                                <input type="checkbox" class="checkbox" value="${instance}">
+                            </div>`
+                        );
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('Failed to list instances: ' + error);
+                }
+            });
+        });
+
+        $('#migrate-instances').click(function () {
+            const selectedInstances = $('.checkbox:checked').map(function () {
+                return $(this).val();
+            }).get();
+
+            $.post('/migrate-instances', { instances: selectedInstances }, function (response) {
+                alert(response.message);
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

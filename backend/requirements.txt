@@ -1,0 +1,11 @@
+Flask
+boto3
+Flask==2.3.2
+google-cloud-compute==2.21.0
+google-auth==2.20.0
+azure-identity==1.12.0
+azure-mgmt-compute==20.0.0
+azure-storage-blob==12.16.0
+boto3==1.26.43
+requests==2.31.0
+python-dotenv==1.0.0  # Optional: for loading environment variables from a .env file
