@@ -1,6 +1,6 @@
 # Multi-Cloud Migration Tool
 
-![AWS Logo]([https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_Web_Services_Logo.svg](https://www.google.com/url?sa=i&url=https%3A%2F%2Flogos-world.net%2Famazon-web-services-logo%2F&psig=AOvVaw0vDLsK33KgdT_AzfSnc1hj&ust=1728368472325000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIj3s7nQ-4gDFQAAAAAdAAAAABAE)) ![Azure Logo](https://upload.wikimedia.org/wikipedia/commons/4/4f/Microsoft_Azure_Logo.svg) ![GCP Logo](https://upload.wikimedia.org/wikipedia/commons/4/4e/Google_Cloud_Platform_Logo.svg)
+![AWS Logo](https://logos-world.net/wp-content/uploads/2021/08/Amazon-Web-Services-AWS-Logo-700x394.png) ![Azure Logo](https://upload.wikimedia.org/wikipedia/commons/4/4f/Microsoft_Azure_Logo.svg) ![GCP Logo](https://upload.wikimedia.org/wikipedia/commons/4/4e/Google_Cloud_Platform_Logo.svg)
 
 ## Overview
 
