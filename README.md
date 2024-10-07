@@ -35,4 +35,6 @@ The **Multi-Cloud Migration Tool** allows users to seamlessly migrate virtual ma
 
 ```bash
 git clone https://github.com/yourusername/multi-cloud-migration-tool.git
-cd multi-cloud-migration-tool
+cd multi-cloud-migration-tool/backend/
+pip install -r requirements.txt
+python app.py
